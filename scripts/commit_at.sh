@@ -36,3 +36,20 @@ echo "            At: $DATETIME"
 echo "    Timer name: $TIMER_NAME"
 echo "" 
 
+systemd-run --user \
+    --on-calendar="$DATETIME" \
+    --unit="$TIMER_NAME" \
+    --timer-property=AccuracySec=0 \
+    --description="One Shot Execution: $SCRIPT_PATH at $DATETIME" \
+    /bin/bash "$SCRIPT_PATH"
+
+if [ $? -eq 0 ]; then 
+    echo "Script scheduled successfully" 
+else 
+    echo "ERROR: Failed to schedule!" 
+    exit 1
+fi 
+
+# systemctl --user list-timers --all
+# systemctl --user stop timer-name 
+# journalctl --user -u timer-name.service
