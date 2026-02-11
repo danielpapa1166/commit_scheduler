@@ -1,1 +1,1 @@
-log folder creation 
+making git auto push script independent from work dir location 

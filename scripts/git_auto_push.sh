@@ -16,9 +16,9 @@ if [ ! -f "$COMMIT_MSG_FILE" ]; then
 fi 
 
 echo "Add SSH agent for authentication" 
-# only works with no pw: 
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
+# only works with no pw: todo: check if needed at all 
+#eval "$(ssh-agent -s)"
+#ssh-add ~/.ssh/id_ed25519
 
 # set the git repo directory: 
 REPO_DIR="$SCRIPT_DIR/.."
@@ -27,7 +27,7 @@ REPO_DIR="$SCRIPT_DIR/.."
 BRANCH=$(git -C "$REPO_DIR" rev-parse --abbrev-ref HEAD 2>/dev/null)
 
 
-if [ -z "$BRANCH"]; then 
+if [ -z "$BRANCH" ]; then 
     echo "Not a git repository: $REPO_DIR"
     exit 1
 fi
