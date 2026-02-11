@@ -44,5 +44,5 @@ echo "Commit files "
 git -C "$REPO_DIR" commit -F "$COMMIT_MSG_FILE"
 
 # push: 
-echo "Pushing to origin " 
+echo "Pushing to origin: -C "$REPO_DIR" push origin "$BRANCH" " 
 git -C "$REPO_DIR" push origin "$BRANCH"
