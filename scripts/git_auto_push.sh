@@ -17,28 +17,30 @@ fi
 
 
 # set the git repo directory: 
-REPO_DIR="${1:-$SCRIPT_DIR/..}"
-
+# directory can be passed as argument to be used to push to different remote 
+REPO_DIR="${1:-$SCRIPT_DIR/..}" 
+echo "             Repo: $REPO_DIR " >> "$LOG_FILE"
 # get the current git branch: 
 BRANCH=$(git -C "$REPO_DIR" rev-parse --abbrev-ref HEAD 2>/dev/null)
-
+echo "             Branch: $BRANCH " >> "$LOG_FILE"
 
 if [ -z "$BRANCH" ]; then 
     echo "Not a git repository: $REPO_DIR"
+    echo "             Failed: Not a git repository: $REPO_DIR " >> "$LOG_FILE"
     exit 1
 fi
-
-echo "Current branch: $BRANCH" 
-
 
 # stage files: 
 echo "Stating files " 
 git -C "$REPO_DIR" add -A 
+echo "             Staging files: Done " >> "$LOG_FILE"
 
 # commit using the message file: 
 echo "Commit files " 
 git -C "$REPO_DIR" commit -F "$COMMIT_MSG_FILE"
+echo "             Commit: Done. From message file $COMMIT_MSG_FILE " >> "$LOG_FILE"
 
 # push: 
-echo "Pushing to origin: -C "$REPO_DIR" push origin "$BRANCH" " 
+echo "Pushing to origin: " 
 git -C "$REPO_DIR" push origin "$BRANCH"
+echo "             Pushing to origin: Done " >> "$LOG_FILE"
