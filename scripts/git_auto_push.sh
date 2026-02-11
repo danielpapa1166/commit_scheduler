@@ -1,6 +1,6 @@
 #!/bin/bash
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-echo "Dummy script has been called at: $(date '+%Y-%m-%d %H:%M:%S') " >> "$SCRIPT_DIR/../log/dummy_log.log"
+echo "Auto-push at: $(date '+%Y-%m-%d %H:%M:%S') " >> "$SCRIPT_DIR/../log/auto_push.log"
 
 COMMIT_MSG_FILE="$SCRIPT_DIR/../txt/commit_message.txt"
 
