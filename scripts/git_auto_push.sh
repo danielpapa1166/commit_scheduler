@@ -15,17 +15,34 @@ if [ ! -f "$COMMIT_MSG_FILE" ]; then
     exit 1
 fi 
 
+echo "Add SSH agent for authentication" 
+# only works with no pw: 
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# set the git repo directory: 
+REPO_DIR="$SCRIPT_DIR/.."
+
 # get the current git branch: 
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
+BRANCH=$(git -C "$REPO_DIR" rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+
+if [ -z "$BRANCH"]; then 
+    echo "Not a git repository: $REPO_DIR"
+    exit 1
+fi
 
 echo "Current branch: $BRANCH" 
 
 
 # stage files: 
-git add -A 
+echo "Stating files " 
+git -C "$REPO_DIR" add -A 
 
 # commit using the message file: 
-git commit -F "$COMMIT_MSG_FILE"
+echo "Commit files " 
+git -C "$REPO_DIR" commit -F "$COMMIT_MSG_FILE"
 
 # push: 
-git push origin "$BRANCH"
+echo "Pushing to origin " 
+git -C "$REPO_DIR" push origin "$BRANCH"
