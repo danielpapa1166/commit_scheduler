@@ -7,6 +7,7 @@ LOG_FILE="$LOG_DIR/auto_push.log"
 mkdir -p "$LOG_DIR"
 echo "Auto-push at: $(date '+%Y-%m-%d %H:%M:%S') " >> "$LOG_FILE"
 
+
 COMMIT_MSG_FILE="$SCRIPT_DIR/../txt/commit_message.txt"
 
 # check if the file exists: 
@@ -14,6 +15,19 @@ if [ ! -f "$COMMIT_MSG_FILE" ]; then
     echo "Commit message file not found: $COMMIT_MSG_FILE"
     exit 1
 fi 
+
+COMMIT_MSG="$2"   # optional
+if [ -z "$COMMIT_MSG" ]; then
+    if [ ! -f "$COMMIT_MSG_FILE" ]; then
+        echo "Error: Commit message file not found: $COMMIT_MSG_FILE"
+        exit 1
+    fi
+    COMMIT_OPT=(-F "$COMMIT_MSG_FILE")
+    COMMIT_LOG_INFO="From message file: $COMMIT_MSG_FILE"
+else
+    COMMIT_OPT=(-m "$COMMIT_MSG")
+    COMMIT_LOG_INFO="From message argument: $COMMIT_MSG"
+fi
 
 
 # set the git repo directory: 
@@ -37,8 +51,8 @@ echo "             Staging files: Done " >> "$LOG_FILE"
 
 # commit using the message file: 
 echo "Commit files " 
-git -C "$REPO_DIR" commit -F "$COMMIT_MSG_FILE"
-echo "             Commit: Done. From message file $COMMIT_MSG_FILE " >> "$LOG_FILE"
+git -C "$REPO_DIR" commit "${COMMIT_OPT[@]}"
+echo "             Commit: Done. $COMMIT_LOG_INFO " >> "$LOG_FILE"
 
 # push: 
 echo "Pushing to origin: " 

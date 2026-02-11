@@ -10,6 +10,7 @@ fi
 DATETIME_RAW="$1" # arg1 should be a datetime  
 SCRIPT_PATH="$2" # arg2 executable script path 
 GIT_REPO_PATH="$3" # arg3 path to the git repo to push to
+GIT_COMMIT_MESSAGE="$4" # optional commit message argument 
 
 # validate script: exists and is executable
 if [ ! -x "$SCRIPT_PATH" ]; then # -x tests if the file exists and execuable
@@ -41,7 +42,7 @@ systemd-run --user \
     --unit="$TIMER_NAME" \
     --timer-property=AccuracySec=0 \
     --description="One Shot Execution: $SCRIPT_PATH at $DATETIME" \
-    /bin/bash "$SCRIPT_PATH" "$GIT_REPO_PATH"
+    /bin/bash "$SCRIPT_PATH" "$GIT_REPO_PATH" "$GIT_COMMIT_MESSAGE"
 
 if [ $? -eq 0 ]; then 
     echo "Script scheduled successfully" 
