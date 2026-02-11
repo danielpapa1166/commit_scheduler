@@ -3,7 +3,7 @@
 # this scripts schedules the given script to a given date and time 
 
 if [ $# -lt 2 ]; then 
-    echo "Invalid number of arguments" 
+    echo "Invalid number of arguments: $#" 
     exit 1 
 fi
 

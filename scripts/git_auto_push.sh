@@ -15,10 +15,6 @@ if [ ! -f "$COMMIT_MSG_FILE" ]; then
     exit 1
 fi 
 
-echo "Add SSH agent for authentication" 
-# only works with no pw: todo: check if needed at all 
-#eval "$(ssh-agent -s)"
-#ssh-add ~/.ssh/id_ed25519
 
 # set the git repo directory: 
 REPO_DIR="$SCRIPT_DIR/.."
