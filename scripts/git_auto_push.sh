@@ -1,6 +1,11 @@
 #!/bin/bash
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-echo "Auto-push at: $(date '+%Y-%m-%d %H:%M:%S') " >> "$SCRIPT_DIR/../log/auto_push.log"
+
+LOG_DIR="$SCRIPT_DIR/../log"
+LOG_FILE="$LOG_DIR/auto_push.log"
+
+mkdir -p "$LOG_DIR"
+echo "Auto-push at: $(date '+%Y-%m-%d %H:%M:%S') " >> "$LOG_FILE"
 
 COMMIT_MSG_FILE="$SCRIPT_DIR/../txt/commit_message.txt"
 

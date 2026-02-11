@@ -1,1 +1,1 @@
-auto push script log update 
+log folder creation 
