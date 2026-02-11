@@ -53,3 +53,11 @@ fi
 # systemctl --user list-timers --all
 # systemctl --user stop timer-name 
 # journalctl --user -u timer-name.service
+
+# easier usage: in .bashrc: 
+# # commit scheduler env vars: 
+# export CSCHED="$HOME/projects/commit_scheduler" # add git repo here
+# commit_at() {
+#    TIMESTAMP="$1"
+#    "$CSCHED/scripts/commit_at.sh" "$TIMESTAMP" "$CSCHED/scripts/git_auto_push.sh"
+# }

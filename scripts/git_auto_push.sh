@@ -17,7 +17,7 @@ fi
 
 
 # set the git repo directory: 
-REPO_DIR="$SCRIPT_DIR/.."
+REPO_DIR="${1:-$SCRIPT_DIR/..}"
 
 # get the current git branch: 
 BRANCH=$(git -C "$REPO_DIR" rev-parse --abbrev-ref HEAD 2>/dev/null)
